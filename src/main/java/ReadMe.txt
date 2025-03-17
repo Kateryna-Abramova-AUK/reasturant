@@ -28,7 +28,7 @@ Step 4: Build and Run the Application
     In IntelliJ IDEA, navigate to the Main.java file.
     Click Run or execute the following command in the terminal
 
-link for video: https://www.loom.com/share/781f352fcc614606a80359de21cbeb0e?sid=f62865a5-3f99-42d7-bf0c-5de0673647a6
+link for video: https://youtu.be/pUHfZ2XNRkQ?si=tnpBJHHFVFQ9mu--
 
 Contrubutions:
 Maltsev: ER-Diagrams, Code Editing and Oversight
