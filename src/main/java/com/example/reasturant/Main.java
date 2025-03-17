@@ -16,6 +16,8 @@ public class Main extends Application {
     Connection connection;
     MenuDatabaseHandler menuHandler;
     CustomerDatabaseHandler customerHandler;
+    RestaurantTableDatabaseHandler restaurantTableDatabaseHandler;
+    EmployeeDatabaseHandler employeeDatabaseHandler;
     public static void main(String[] args) {
         launch(args);
     }
@@ -31,6 +33,8 @@ public class Main extends Application {
         menuHandler = new MenuDatabaseHandler(connection);
         customerHandler = new CustomerDatabaseHandler(connection);
         customerHandler = new CustomerDatabaseHandler(connection);
+        employeeDatabaseHandler= new EmployeeDatabaseHandler(connection);
+        restaurantTableDatabaseHandler= new RestaurantTableDatabaseHandler(connection);
 
         Label customerLabel = new Label("Customer Management:");
         Label menuLabel = new Label("Menu Management:");
@@ -355,41 +359,184 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         }
+
     private void deleteTable() {
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField tableIdField = new TextField();
+        tableIdField.setPromptText("Table ID");
+        Button submit = new Button("Delete Table");
+        submit.setOnAction(e -> {
+            try {
+                restaurantTableDatabaseHandler.deleteRestaurantTable(Integer.parseInt(tableIdField.getText()));
+                stage.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        layout.getChildren().addAll(tableIdField, submit);
+        Scene scene = new Scene(layout, 300, 150);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void updateTable() {
-
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField tableIdField = new TextField();
+        tableIdField.setPromptText("Table ID");
+        TextField tableNumberField = new TextField();
+        tableNumberField.setPromptText("New Table Number");
+        TextField capacityField = new TextField();
+        capacityField.setPromptText("New Capacity");
+        TextField statusField = new TextField();
+        statusField.setPromptText("New Status");
+        Button submit = new Button("Update Table");
+        submit.setOnAction(e -> {
+            try {
+                restaurantTableDatabaseHandler.updateRestaurantTable(
+                        Integer.parseInt(tableIdField.getText()),
+                        Integer.parseInt(tableNumberField.getText()),
+                        Integer.parseInt(capacityField.getText()),
+                        statusField.getText()
+                );
+                stage.close();
+            } catch (SQLException | NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+        });
+        layout.getChildren().addAll(tableIdField, tableNumberField, capacityField, statusField, submit);
+        Scene scene = new Scene(layout, 300, 250);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void addTable() {
-
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField tableNumberField = new TextField();
+        tableNumberField.setPromptText("Table Number");
+        TextField capacityField = new TextField();
+        capacityField.setPromptText("Capacity");
+        TextField statusField = new TextField();
+        statusField.setPromptText("Status");
+        Button submit = new Button("Add Table");
+        submit.setOnAction(e -> {
+            try {
+                restaurantTableDatabaseHandler.insertRestaurantTable(
+                        Integer.parseInt(tableNumberField.getText()),
+                        Integer.parseInt(capacityField.getText()),
+                        statusField.getText()
+                );
+                stage.close();
+            } catch (SQLException | NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+        });
+        layout.getChildren().addAll(tableNumberField, capacityField, statusField, submit);
+        Scene scene = new Scene(layout, 300, 250);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void deleteEmployee() {
-
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField empIdField = new TextField();
+        empIdField.setPromptText("Employee ID");
+        Button submit = new Button("Delete Employee");
+        submit.setOnAction(e -> {
+            try {
+                employeeDatabaseHandler.deleteEmployee(Integer.parseInt(empIdField.getText()));
+                stage.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        layout.getChildren().addAll(empIdField, submit);
+        Scene scene = new Scene(layout, 300, 150);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void updateEmployee() {
-
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField empIdField = new TextField();
+        empIdField.setPromptText("Employee ID");
+        TextField hireDateField = new TextField();
+        hireDateField.setPromptText("New Hire Date (YYYY-MM-DD)");
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("New Phone Number");
+        TextField roleField = new TextField();
+        roleField.setPromptText("New Role");
+        TextField fullNameField = new TextField();
+        fullNameField.setPromptText("New Full Name");
+        Button submit = new Button("Update Employee");
+        submit.setOnAction(e -> {
+            try {
+                employeeDatabaseHandler.updateEmployee(
+                        Integer.parseInt(empIdField.getText()),
+                        hireDateField.getText(),
+                        phoneField.getText(),
+                        roleField.getText(),
+                        fullNameField.getText()
+                );
+                stage.close();
+            } catch (SQLException | NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+        });
+        layout.getChildren().addAll(empIdField, hireDateField, phoneField, roleField, fullNameField, submit);
+        Scene scene = new Scene(layout, 350, 300);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void addEmployee() {
-
-    }
-        private void viewMenu () {
-            Stage stage = new Stage();
-            VBox layout = new VBox(10);
-            ListView<String> menuList = new ListView<>();
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        TextField hireDateField = new TextField();
+        hireDateField.setPromptText("Hire Date (YYYY-MM-DD)");
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Phone Number");
+        TextField roleField = new TextField();
+        roleField.setPromptText("Role");
+        TextField fullNameField = new TextField();
+        fullNameField.setPromptText("Full Name");
+        Button submit = new Button("Add Employee");
+        submit.setOnAction(e -> {
             try {
-                menuList.getItems().addAll(menuHandler.getAllMenuItems());
-            } catch (SQLException e) {
-                e.printStackTrace();
+                employeeDatabaseHandler.insertEmployee(
+                        hireDateField.getText(),
+                        phoneField.getText(),
+                        roleField.getText(),
+                        fullNameField.getText()
+                );
+                stage.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            layout.getChildren().add(menuList);
-            Scene scene = new Scene(layout, 300, 400);
-            stage.setScene(scene);
-            stage.show();
+        });
+        layout.getChildren().addAll(hireDateField, phoneField, roleField, fullNameField, submit);
+        Scene scene = new Scene(layout, 350, 250);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void viewMenu () {
+        Stage stage = new Stage();
+        VBox layout = new VBox(10);
+        ListView<String> menuList = new ListView<>();
+        try {
+            menuList.getItems().addAll(menuHandler.getAllMenuItems());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        layout.getChildren().add(menuList);
+        Scene scene = new Scene(layout, 300, 400);
+        stage.setScene(scene);
+        stage.show();
     }
 }
 
