@@ -1,4 +1,4 @@
-package com.example.reasturant;
+package com.example.restaurant;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
