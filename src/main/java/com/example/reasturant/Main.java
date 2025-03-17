@@ -78,7 +78,7 @@ public class Main extends Application {
         viewMenuBtn.setOnAction(e -> viewMenu());
 
         String buttonStyle = "-fx-padding: 8px 12px; -fx-border-radius: 5px; -fx-background-radius: 5px;";
-        String hoverStyle = "-fx-padding: 8px 12px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: #0c9bab;";
+        String hoverStyle = "-fx-padding: 8px 12px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: #788894;";
 
         for (Button btn : new Button[]{addCustomerBtn, updateCustomerBtn, deleteCustomerBtn,
                 addMenuItemBtn, updateMenuItemBtn, deleteMenuItemBtn,
